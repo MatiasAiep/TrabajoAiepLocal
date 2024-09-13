@@ -1,0 +1,278 @@
+PROYECTO ROBOT MATIAS MUÑOZ
+-------------------------------------------------------
+package com.robot.proyecto;
+
+public class Main_MM {
+    public static void main(String[] args) {
+        Mano_MM mano = new Mano_MM("metal", "plateado", 5);
+        Piernas_MM pierna = new Piernas_MM("aluminio", "gris", 90);
+        Torso_MM torso = new Torso_MM("plástico", "azul", "rectangular");
+        Cabeza_MM cabeza = new Cabeza_MM("silicona", "beige", 2);
+
+        Robot_MM robot = new Robot_MM(mano, pierna, torso, cabeza);
+
+        robot.operar();
+
+        Outfit_MM casual = new Casual_MM("verde");
+        robot.aplicarOutfit(casual);
+
+        Outfit_MM formal = new Formal_MM("negro");
+        robot.aplicarOutfit(formal);
+    }
+}
+--------------------------------------------------------------
+package com.robot.proyecto;
+
+public abstract class Partes_MM {
+
+	String material;
+	String color;
+	
+	public Partes_MM(String material , String color) {
+		this.material = material;
+		this.color = color;
+	}
+	
+	public String getMaterial_mm() {
+		return material;
+	}
+	public void setMaterial_mm(String material) {
+		this.material = material;
+	}
+	public String getColor_mm() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
+	}
+		
+	public void operar_mm() {
+		
+		
+	}
+}
+----------------------------------------------------------------------------
+package com.robot.proyecto;
+
+public class Cabeza_MM extends Partes_MM{
+
+	private int ojos;
+
+	public Cabeza_MM(String material, String color , int ojos) {
+		super(material, color);
+		this.ojos = ojos;
+	}
+
+	@Override
+	public void operar_mm() {
+		System.out.println("Cabeza con cantidad de" + ojos);
+	}
+	public int getOjos() {
+		return ojos;
+	}
+	public void setOjos(int ojos) {
+		this.ojos = ojos;
+	}
+
+}
+-------------------------------------------------------------------------
+package com.robot.proyecto;
+
+public class Casual_MM extends Outfit_MM {
+    public Casual_MM(String color) {
+        super();
+    }
+
+	@Override
+	public void Vestir_MM() {
+		System.out.println("Vistiendo Robot con outfit casual de color " + color + ".");
+		
+	}
+}
+---------------------------------------------------------------------------
+package com.robot.proyecto;
+
+public class Formal_MM extends Outfit_MM {
+    public Formal_MM(String color) {
+        super();
+    }
+	@Override
+	public void Vestir_MM() {
+		System.out.println("Aplicando outfit formal de color " + color + ".");
+		
+	}
+}
+----------------------------------------------------------------------------------------
+package com.robot.proyecto;
+
+public class Mano_MM extends Partes_MM {
+	private int dedos;
+
+    public Mano_MM(String material, String color, int dedos) {
+        super(material, color);
+        this.dedos = dedos;
+    }
+
+    public void operar_mm() {
+        System.out.println("Moviendo los " + dedos + " dedos.");
+    }
+
+    // Getter y Setter
+    public int getDedos() {
+        return dedos;
+    }
+
+    public void setDedos(int dedos) {
+        this.dedos = dedos;
+    }
+}
+---------------------------------------------------------------------------------
+package com.robot.proyecto;
+
+public abstract class Outfit_MM {
+	protected String tipo;
+    protected String color;
+
+    public void Outfit(String tipo, String color) {
+        this.tipo = tipo;
+        this.color = color;
+    }
+
+    public abstract void Vestir_MM();
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+}
+------------------------------------------------------------------------
+package com.robot.proyecto;
+
+public class Piernas_MM extends Partes_MM {
+
+	private int largo;
+
+	public Piernas_MM(String material, String color , int largo) {
+		super(material, color);
+		this.largo = largo;
+	}
+
+	@Override
+	public void operar_mm() {
+		System.out.println("El robot camina con piernas de" + largo + " cm.");	
+	}
+	
+	public int getLargo() {
+		return largo;
+	}
+	public void setLargo(int largo) {
+		this.largo = largo;
+	}
+}
+-----------------------------------------------------------------
+package com.robot.proyecto;
+
+public class Torso_MM extends Partes_MM {
+
+	private String forma;
+
+	public Torso_MM(String material, String color, String forma) {
+		super(material, color);
+		this.forma = forma;
+	}
+
+	@Override
+	public void operar_mm() {
+		System.out.println("El Torso del robot tiene forma " + forma + ".");
+	}
+	
+	public String getForma() {
+		return forma;
+	}
+	public void setForma(String forma) {
+		this.forma = forma;
+	}
+
+}
+------------------------------------------------------------------------
+package com.robot.proyecto;
+
+public class Robot_MM {
+    private Mano_MM mano;
+    private Piernas_MM pierna;
+    private Torso_MM torso;
+    private Cabeza_MM cabeza;
+    private Outfit_MM outfit;
+
+    public Robot_MM(Mano_MM mano, Piernas_MM pierna, Torso_MM torso, Cabeza_MM cabeza) {
+        this.mano = mano;
+        this.pierna = pierna;
+        this.torso = torso;
+        this.cabeza = cabeza;
+    }
+
+    public void aplicarOutfit(Outfit_MM outfit) {
+        this.outfit = outfit;
+        outfit.Vestir_MM();
+    }
+
+    public void operar() {
+        mano.operar_mm();
+        pierna.operar_mm();
+        torso.operar_mm();
+        cabeza.operar_mm();
+    }
+
+    // Getters y Setters
+    public Mano_MM getMano() {
+        return mano;
+    }
+
+    public void setMano(Mano_MM mano) {
+        this.mano = mano;
+    }
+
+    public Piernas_MM getPierna() {
+        return pierna;
+    }
+
+    public void setPierna(Piernas_MM pierna) {
+        this.pierna = pierna;
+    }
+
+    public Torso_MM getTorso() {
+        return torso;
+    }
+
+    public void setTorso(Torso_MM torso) {
+        this.torso = torso;
+    }
+
+    public Cabeza_MM getCabeza() {
+        return cabeza;
+    }
+
+    public void setCabeza(Cabeza_MM cabeza) {
+        this.cabeza = cabeza;
+    }
+
+    public Outfit_MM getOutfit() {
+        return outfit;
+    }
+
+    public void setOutfit(Outfit_MM outfit) {
+        this.outfit = outfit;
+    }
+}
+----------------------------------------------------------
